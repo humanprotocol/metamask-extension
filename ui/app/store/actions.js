@@ -2427,7 +2427,11 @@ export function requestAccountsPermissionWithId(origin) {
  */
 export function approvePermissionsRequest(request, accounts) {
   return () => {
-    background.approvePermissionsRequest(request, accounts);
+    background.approvePermissionsRequest(request, accounts, (err) => {
+      if (err) {
+        dispatch(displayWarning(err.message));
+      }
+    });
   };
 }
 
@@ -2454,8 +2458,12 @@ export function rejectPermissionsRequest(requestId) {
  * Clears the given permissions for the given origin.
  */
 export function removePermissionsFor(domains) {
-  return () => {
-    background.removePermissionsFor(domains);
+  return (dispatch) => {
+    background.removePermissionsFor(domains, (err) => {
+      if (err) {
+        dispatch(displayWarning(err.message));
+      }
+    });
   };
 }
 
@@ -2463,8 +2471,12 @@ export function removePermissionsFor(domains) {
  * Clears all permissions for all domains.
  */
 export function clearPermissions() {
-  return () => {
-    background.clearPermissions();
+  return (dispatch) => {
+    background.clearPermissions((err) => {
+      if (err) {
+        dispatch(displayWarning(err.message));
+      }
+    });
   };
 }
 
