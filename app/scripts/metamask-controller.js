@@ -1996,7 +1996,7 @@ export default class MetamaskController extends EventEmitter {
     this.activeControllerConnections += 1;
     this.emit('controllerConnectionChanged', this.activeControllerConnections);
 
-    // set up postmessage transport
+    // set up postStream transport
     outStream.on('data', createMetaRPCHandler(api, outStream));
     const handleUpdate = (update) => {
       // send notification to client-side
