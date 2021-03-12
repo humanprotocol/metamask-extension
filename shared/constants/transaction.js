@@ -152,7 +152,7 @@ export const TRANSACTION_GROUP_CATEGORIES = {
  * @property {string} value - The amount of wei, in hexadecimal, to send
  * @property {number} nonce - The transaction count for the current account/network
  * @property {string} gasPrice - The amount of gwei, in hexadecimal, per unit of gas
- * @property {string} gasLimit - The max amount of gwei in, in hexadecimal, the user is willing to pay
+ * @property {string} gas - The max amount of gwei, in hexadecimal, the user is willing to pay
  * @property {string} [data] - Hexadecimal encoded string representing calls to the EVM's ABI
  */
 /**
