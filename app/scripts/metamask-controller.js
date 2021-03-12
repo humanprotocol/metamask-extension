@@ -585,7 +585,7 @@ export default class MetamaskController extends EventEmitter {
   /**
    * Returns an Object containing API Callback Functions.
    * These functions are the interface for the UI.
-   * The API object can be transmitted over a stream with dnode.
+   * The API object can be transmitted over a stream via JSON-RPC.
    *
    * @returns {Object} Object containing API functions.
    */

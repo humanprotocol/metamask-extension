@@ -1,6 +1,4 @@
 import querystring from 'querystring';
-import { EventEmitter } from 'events';
-import dnode from 'dnode';
 import PortStream from 'extension-port-stream';
 import extension from 'extensionizer';
 import { setupMultiplex } from './lib/stream-utils';
@@ -22,36 +20,13 @@ function start() {
   });
   const connectionStream = new PortStream(extensionPort);
   const mx = setupMultiplex(connectionStream);
-  setupControllerConnection(
-    mx.createStream('controller'),
-    (err, metaMaskController) => {
-      if (err) {
-        return;
-      }
-
-      const continueLink = document.getElementById('unsafe-continue');
-      continueLink.addEventListener('click', () => {
-        metaMaskController.safelistPhishingDomain(suspect.hostname);
-        window.location.href = suspect.href;
-      });
-    },
-  );
-}
-
-function setupControllerConnection(connectionStream, cb) {
-  const eventEmitter = new EventEmitter();
-  // the "weak: false" option is for nodejs only (eg unit tests)
-  // it is a workaround for node v12 support
-  const metaMaskControllerDnode = dnode(
-    {
-      sendUpdate(state) {
-        eventEmitter.emit('update', state);
-      },
-    },
-    { weak: false },
-  );
-  connectionStream.pipe(metaMaskControllerDnode).pipe(connectionStream);
-  metaMaskControllerDnode.once('remote', (backgroundConnection) =>
-    cb(null, backgroundConnection),
-  );
+  const backgroundConnection = mx.createStream('controller');
+  const continueLink = document.getElementById('unsafe-continue');
+  continueLink.addEventListener('click', () => {
+    backgroundConnection.write({
+      method: 'safelistPhishingDomain',
+      params: [suspect.hostname],
+    });
+    window.location.href = suspect.href;
+  });
 }

@@ -2426,7 +2426,7 @@ export function requestAccountsPermissionWithId(origin) {
  * @param {string[]} accounts - The accounts to expose, if any.
  */
 export function approvePermissionsRequest(request, accounts) {
-  return () => {
+  return (dispatch) => {
     background.approvePermissionsRequest(request, accounts, (err) => {
       if (err) {
         dispatch(displayWarning(err.message));
@@ -2621,7 +2621,11 @@ export function getContractMethodData(data = '') {
 
     return getMethodDataAsync(fourBytePrefix).then(({ name, params }) => {
       dispatch(loadingMethodDataFinished());
-      background.addKnownMethodData(fourBytePrefix, { name, params });
+      background.addKnownMethodData(fourBytePrefix, { name, params }, (err) => {
+        if (err) {
+          dispatch(displayWarning(err.message));
+        }
+      });
       return { name, params };
     });
   };

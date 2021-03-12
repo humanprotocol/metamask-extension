@@ -19,6 +19,7 @@ class MetaRPCClient {
           const cb = p[p.length - 1];
           const params = p.slice(0, -1);
           const id = createRandomId();
+
           object.requests.set(id, cb);
           object.connectionStream.write({
             method: property,
@@ -30,9 +31,9 @@ class MetaRPCClient {
     });
   }
 
-  onNotification(cb) {
+  onNotification(handler) {
     this.notificationChannel.addListener('notification', (data) => {
-      cb(data);
+      handler(data);
     });
   }
 
