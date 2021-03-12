@@ -162,8 +162,6 @@ export const TRANSACTION_GROUP_CATEGORIES = {
  * @property {string} [blockNumber] - The block number this transaction was
  *  included in. Currently only present on incoming transactions!
  * @property {number} id - An internally unique tx identifier.
- * @property {string} intentId - A deterministic identification of the intent
- *  of this transaction.
  * @property {number} time - Time the transaction was first suggested, in unix
  *  epoch time (ms).
  * @property {TransactionTypeString} type - The type of transaction this txMeta
