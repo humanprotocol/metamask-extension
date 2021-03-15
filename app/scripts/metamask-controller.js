@@ -2007,6 +2007,11 @@ export default class MetamaskController extends EventEmitter {
     };
     this.on('update', handleUpdate);
     outStream.on('end', () => {
+      this.activeControllerConnections -= 1;
+      this.emit(
+        'controllerConnectionChanged',
+        this.activeControllerConnections,
+      );
       this.removeListener('update', handleUpdate);
     });
   }

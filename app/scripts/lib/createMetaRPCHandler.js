@@ -14,7 +14,7 @@ const createMetaRPCHandler = (api, outStream) => {
     api[data.method](...data.params, (err, result) => {
       if (err) {
         outStream.write({
-          error: serializeError(err),
+          error: serializeError(err, { shouldIncludeStack: true }),
           id: data.id,
         });
       } else {
