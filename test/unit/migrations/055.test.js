@@ -1,5 +1,5 @@
 import { strict as assert } from 'assert';
-import migration54 from '../../../app/scripts/migrations/054';
+import migration55 from '../../../app/scripts/migrations/055';
 import {
   GOERLI,
   GOERLI_CHAIN_ID,
@@ -13,18 +13,18 @@ import {
   ROPSTEN_CHAIN_ID,
 } from '../../../shared/constants/network';
 
-describe('migration #54', function () {
+describe('migration #55', function () {
   it('should update the version metadata', async function () {
     const oldStorage = {
       meta: {
-        version: 53,
+        version: 54,
       },
       data: {},
     };
 
-    const newStorage = await migration54.migrate(oldStorage);
+    const newStorage = await migration55.migrate(oldStorage);
     assert.deepEqual(newStorage.meta, {
-      version: 54,
+      version: 55,
     });
   });
 
@@ -53,7 +53,7 @@ describe('migration #54', function () {
       },
     };
 
-    const newStorage = await migration54.migrate(oldStorage);
+    const newStorage = await migration55.migrate(oldStorage);
     assert.deepEqual(newStorage.data, {
       IncomingTransactionsController: {
         incomingTransactions:
@@ -81,7 +81,7 @@ describe('migration #54', function () {
       },
     };
 
-    const newStorage = await migration54.migrate(oldStorage);
+    const newStorage = await migration55.migrate(oldStorage);
     assert.deepEqual(oldStorage.data, newStorage.data);
   });
   it('should do nothing if state is empty', async function () {
@@ -90,7 +90,7 @@ describe('migration #54', function () {
       data: {},
     };
 
-    const newStorage = await migration54.migrate(oldStorage);
+    const newStorage = await migration55.migrate(oldStorage);
     assert.deepEqual(oldStorage.data, newStorage.data);
   });
 });

@@ -1,7 +1,7 @@
 import { cloneDeep, mapKeys } from 'lodash';
 import { NETWORK_TYPE_TO_ID_MAP } from '../../../shared/constants/network';
 
-const version = 54;
+const version = 55;
 
 /**
  * replace 'incomingTxLastFetchedBlocksByNetwork' with 'incomingTxLastFetchedBlockByChainId'
